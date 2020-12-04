@@ -3,9 +3,7 @@ import numpy
 
 
 class MonotonicNetwork(torch.nn.Module):
-    """ Monotonic Network of One Dimension
-    https://papers.nips.cc/paper/1358-monotonic-networks.pdf
-
+    """
     Example:
         >>> model = MonotonicNetwork()
         >>> X1 = torch.rand(50, 1)

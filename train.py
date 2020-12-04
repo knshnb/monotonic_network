@@ -1,18 +1,15 @@
 import numpy as np
 import torch
-import torch.nn as nn
 from model import MonotonicNetwork
 import matplotlib.pyplot as plt
 
 
-def fit(model, x_train, y_train):
-    criterion = nn.MSELoss()
-    learning_rate = 0.001
+def fit(model, x_train, y_train, num_epochs=1000, num_batch=10, learning_rate=0.001):
+    criterion = torch.nn.MSELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
-    num_epochs = 1000
     inputs_all = torch.from_numpy(x_train)
     targets_all = torch.from_numpy(y_train)
-    batches = np.split(np.arange(0, len(x_train)), 10)
+    batches = np.split(np.arange(0, len(x_train)), num_batch)
     for epoch in range(num_epochs):
         for batch in batches:
             inputs = inputs_all[batch]
@@ -30,7 +27,6 @@ def fit(model, x_train, y_train):
 if __name__ == '__main__':
     width = 2.0
     num_data = 100
-    net = torch.nn
     net = MonotonicNetwork(20, 20, const_sign=-1.0)
     X = np.random.uniform(-width, width, num_data).astype(np.float32)[:, None]
     eps = np.random.normal(0, 0.01, num_data).astype(np.float32)[:, None]
